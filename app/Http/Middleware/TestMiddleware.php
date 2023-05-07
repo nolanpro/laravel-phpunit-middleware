@@ -15,7 +15,10 @@ class TestMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dump("HERE IN MIDDLEWARE");
-        return $next($request);
+        $response = $next($request);
+        $content = $response->getContent();
+        $content .= "Test Middleware";
+        $response->setContent($content);
+        return $response;
     }
 }
